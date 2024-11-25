@@ -1,3 +1,4 @@
+#include "cube.h"
 int	cubcheck(char *y)
 {
 	int	i;
@@ -27,8 +28,13 @@ int	cubcheck(char *y)
 }
 int main(int argc , char **argv)
 {
+	if (argc != 2)
+	{
+		return (0);
+	}
     if (cubcheck(argv[1]))
     {
+		printf("working 1");
         cube3d(argv[1]);
         
     }

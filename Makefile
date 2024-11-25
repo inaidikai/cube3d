@@ -2,12 +2,13 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror 
 
 INFILES = main.c \
-        cub3d.c
-
+          cub3d.c \
+          get_next_line.c \
+          get_next_line_utils.c
 
 OBJFILES = $(INFILES:.c=.o)
 
-NAME = braiiiiiiinnnzzzZ
+NAME = cub3d
 
 all: $(NAME)
 
