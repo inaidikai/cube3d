@@ -34,7 +34,7 @@ int main(int argc , char **argv)
 	}
     if (cubcheck(argv[1]))
     {
-		printf("working 1");
+		
         cube3d(argv[1]);
         
     }

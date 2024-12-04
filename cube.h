@@ -25,4 +25,37 @@ typedef struct s_map
     int height;
 }       t_map;
 
+typedef struct s_texture
+{
+	int			txt;
+	void		*img;
+	int			width;
+	int			height;
+}				t_texture;
+
+ typedef struct s_img
+{
+	t_texture	*no;
+	t_texture	*so;
+	t_texture	*we;
+	t_texture	*ea;
+	int			f;
+	int			c;
+	int			init;
+}				t_img;
+
+enum	e_element
+{
+	NO = 1,
+	SO = 2,
+	WE = 3,
+	EA = 4,
+	F = 5,
+	C = 6,
+	IN = 7,
+	OUT = 8,
+	UNK = 9,
+	TILES = 50,
+};
+
 #endif
