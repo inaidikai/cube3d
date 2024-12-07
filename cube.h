@@ -32,9 +32,9 @@ typedef struct s_vars
 	char		**map;
 	int			map_y;
 	int			map_x;
-	int			pos;
-	float		pos_x;
-	float		pos_y;
+	int			pos; // player starting postion
+	float		pos_x; // player  x position
+	float		pos_y; //player y position
 	int			player_side;
 	int			map_on;
 	int			enemy_win;
