@@ -33,9 +33,14 @@ int main(int argc , char **argv)
 		return (0);
 	}
     if (cubcheck(argv[1]))
-    {
-		
         cube3d(argv[1]);
-        
-    }
+	else
+	{
+		write(1,"WRONG", 6);
+		write(1," TRY ", 6);
+		write(1,"WITH", 6);
+		write(1," .cub ", 6);
+		return 0;
+	}
+		
 }

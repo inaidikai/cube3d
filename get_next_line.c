@@ -6,7 +6,7 @@
 /*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:00:25 by inkahar           #+#    #+#             */
-/*   Updated: 2024/11/25 15:46:16 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/06 10:58:39 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*get_next_line(int fd)
 	static char	*file;
 	char		*result;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT32_MAX)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
 	file = bufmalloc(fd, file);
 	if (!file)
