@@ -30,17 +30,19 @@ int main(int argc , char **argv)
 {
 	if (argc != 2)
 	{
-		return (0);
+		write(1,"invalid format",15); //wrote a message
+		return (1); //changed to 1 instead of 0
 	}
     if (cubcheck(argv[1]))
         cube3d(argv[1]);
 	else
 	{
-		write(1,"WRONG", 6);
-		write(1," TRY ", 6);
-		write(1,"WITH", 6);
-		write(1," .cub ", 6);
+		write(1,"invalid format2",15);
 		return 0;
 	}
-		
+	initialiae_data();
+	game_start();
+	mlx_stuffs();
+	exit(args);
+	return(0);	
 }

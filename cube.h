@@ -76,6 +76,16 @@ typedef struct s_texture
 	int			init;
 }				t_img;
 
+ typedef struct s_keys
+{
+	int w;
+	int a;
+	int s;
+	int d;
+	
+}				t_keys;
+
+
 enum	e_element
 {
 	NO = 1,
