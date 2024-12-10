@@ -6,7 +6,7 @@
 /*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:36:29 by inkahar           #+#    #+#             */
-/*   Updated: 2024/12/07 11:24:02 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/10 10:33:41 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,9 +235,9 @@ char cube3d(char *c)
     t_map map;
     element_hunter(c);
     store(&map , c);
-    // if(!path_struct)
-    // {
-    //     exit(perror_cube3d("map invalid", 0));
-    // }
+    if(!path_struct(&map))
+    {
+        exit(perror_cube3d("map invalid", 0));
+    }
     return 0;
 }
