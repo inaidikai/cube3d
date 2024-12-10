@@ -6,7 +6,7 @@
 /*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:34:21 by inkahar           #+#    #+#             */
-/*   Updated: 2024/12/10 15:45:07 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/10 15:50:42 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ void calc_dimensions(t_map *map, int *num_rows , int *max_length, int *length)
         }
         (*num_rows)++;
     }
+}
+int is_end(int index, t_map *map)
+{
+    int i;
+    i = index;
+    i++;
+    while(map->map[i])
+    {
+        if(ft_strlen(map->map[i] > 0))
+            return 1;
+        i++;
+    }
+    map->map[i] = NULL;
+    return 0;
 }
 void initmap(t_map *map, char *newmap[], int num_rows, int max_length)
 {
@@ -114,14 +128,12 @@ int path_struct(t_map *map)
     if(is_map_empty(&map) == 1)
         return 1;
     formatmap(&map);
-    if(ft_arraylength(map->map) < 3 || char_check(&map) != 1 )
-}
-	if (ft_array_length(data()->map) < 3 || check_characters() != 1)
+	if (ft_array_length(map->map) < 3 || check_characters() != 1)
 		return (1);
 	i = 0;
-	while (data()->map[i])
+	while (map->map[i])
 	{
-		if (ft_strlen(data()->map[i]) == 0)
+		if (ft_strlen(map->map[i]) == 0)
 		{
 			if (is_end(i) == 1)
 				return (1);
