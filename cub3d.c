@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fkuruthl <fkuruthl@student.42.fr>          +#+  +:+       +#+        */
+/*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:36:29 by inkahar           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/12/10 10:33:41 by inkahar          ###   ########.fr       */
-=======
-/*   Updated: 2024/12/09 14:38:02 by fkuruthl         ###   ########.fr       */
->>>>>>> 889ead4569178028f5e99ef3ed76dcf8e520bbe7
+/*   Updated: 2024/12/13 15:20:05 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +21,7 @@ void ft_free_pp(void **argv)
 {
     int i;
     i = 0;
+    if (!argv) return;
     while(argv[i])
     {
         free(argv[i]);
@@ -58,16 +55,20 @@ void	init_color(int *color, char *element)
 
 void	init_texture(t_vars *vars, t_texture *txt, char *element, int val)
 {
-	txt->img = mlx_xpm_file_to_image(vars->mlx, element,
-			&txt->width, &txt->height);
-	if (!txt->img)
-		exit(perror_cube3d("texture invalid", 0));
-	txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel,
-			&txt->line_length, &txt->endian);
-	txt->pix_y = 0;
-	txt->pix_x = 0;
-	txt->txt = val;
+    if (!vars->mlx)
+        exit(perror_cube3d("mlx is not initialized", 0));
+    txt->img = mlx_xpm_file_to_image(vars->mlx, element,
+            &txt->width, &txt->height);
+    if (!txt->img)
+        exit(perror_cube3d("Failed to load texture", 0));
+
+    txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel,
+            &txt->line_length, &txt->endian);
+    txt->pix_y = 0;
+    txt->pix_x = 0;
+    txt->txt = val;
 }
+
 t_img	*ft_t_img(void)
 {
 	static t_img			img;
@@ -103,7 +104,7 @@ static int	init_element(char *element, int val)
 	else if (element && val == C)
 		init_color(&ft_t_img()->c, element);
 	else
-		return (0);
+		return (perror_cube3d("whattttt", 0));
 	return (1);
 }
 
@@ -119,38 +120,40 @@ int val_chk(t_img *img, char *temp)
         return(WE);
     if(strncmp(temp, "EA", 2) == 0 && !img->ea->img )
         return(EA);
-    if(strncmp(temp, "F", 2) == 0 && !img->f )
+    if(strncmp(temp, "F", 1) == 0 && !img->f )
         return(F);
-    if(strncmp(temp, "C", 2) == 0 && !img->c )
+    if(strncmp(temp, "C", 1) == 0 && !img->c )
         return(C);
     return 0;
 }
 int find_element(char *element, int fd)
 {
-    int val;
-    int i;
-    i = 0;
-    val = 0;
-    while(*element && invisible_yes_no(*element) )
+    int val = 0, i = 0;
+    while (*element && invisible_yes_no(*element))
         element++;
+
     val = val_chk(ft_t_img(), element);
-    if(val > 0)
+    if (val > 0)
     {
         element++;
-        if(val < 5)
+        if (val < 5)
             element++;
-        while(invisible_yes_no(*element))
+        while (invisible_yes_no(*element))
             element++;
-        while(element[i] && !invisible_yes_no(element[i]))
+        i = 0;
+        while (element[i] && !invisible_yes_no(element[i]))
             i++;
         element[i] = '\0';
-        if(init_element(element , val))
+
+        if (init_element(element, val))
             return (1);
-        close (fd);
-        exit(perror_cube3d("element not found", 0));
+
+        close(fd);
+        exit(perror_cube3d("Element initialization failed", 0));
     }
     return 0;
 }
+
 void element_hunter(char *ca)
 {
     int     i;
@@ -187,19 +190,17 @@ int fill(t_map *map, char *c)
 
     fd = open(c, O_RDONLY);
     if(fd < 0)
-        printf("sSs");
+        printf("Error");
 
     line =  get_next_line(fd);
     width = ft_strlen(line);
     height = 0;
-     printf("%s", line);
     while(line)
     {
         printf("%s", line);
         free(line);
  
         line = get_next_line(fd);
-        printf("%s", line);
         height++;
     }
     close(fd);
@@ -231,15 +232,17 @@ void store (t_map *map, char *c)
     }
     map->map[i] = NULL;
     close(fd);
-    // parse(map, *map);
 }
 
 char cube3d(char *c)
 {
+    t_vars *vars;
     t_map map;
+
+    vars = ft_t_vars(); // Ensures MLX is initialized
     element_hunter(c);
-    store(&map , c);
-    if(!path_struct(&map))
+    store(&map, c);
+    if (!path_struct(&map))
     {
         exit(perror_cube3d("map invalid", 0));
     }

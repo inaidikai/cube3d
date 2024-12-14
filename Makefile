@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -Iminilibx_opengl_20191021
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address  -Iminilibx_opengl_20191021
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -11,7 +11,8 @@ INFILES = main.c \
           cub3d.c \
           get_next_line.c \
           get_next_line_utils.c \
-		  exit_error.c
+		  exit_error.c\
+		  path_struct.c
 
 OBJFILES = $(INFILES:.c=.o)
 

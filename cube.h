@@ -110,4 +110,5 @@ char cube3d(char *c);
 void	free_cube3d(t_vars *vars);
 int	perror_cube3d(char *str, int flag);
 t_vars	*ft_t_vars(void);
+int path_struct(t_map *map);
 #endif
