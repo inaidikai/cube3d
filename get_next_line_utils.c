@@ -6,7 +6,7 @@
 /*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 10:32:26 by inkahar           #+#    #+#             */
-/*   Updated: 2024/11/25 15:46:25 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/15 12:54:35 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strch(const char *s, int c)
 {
 	if (!s)
 		return (0);

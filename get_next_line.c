@@ -6,7 +6,7 @@
 /*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/10 10:00:25 by inkahar           #+#    #+#             */
-/*   Updated: 2024/12/06 10:58:39 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/15 12:54:50 by inkahar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*reader(int fd, char *file, char *buffer)
 	char	*tmp;
 
 	reading = 1;
-	while (!ft_strchr(file, '\n') && reading > 0)
+	while (!ft_strch(file, '\n') && reading > 0)
 	{
 		reading = read(fd, buffer, BUFFER_SIZE);
 		if (reading <= 0)

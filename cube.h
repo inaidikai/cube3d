@@ -101,7 +101,7 @@ enum	e_element
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(char const *str);
-char	*ft_strchr(char const *str, int c);
+char	*ft_strch(char const *str, int c);
 char	*ft_strcpy(char *dest, char *src);
 char	*ft_strdup(char const *src);
 char	*ft_strjoin(char const *s1, char const *s2);
