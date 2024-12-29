@@ -1,29 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fkuruthl <fkuruthl@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/29 12:17:35 by fkuruthl          #+#    #+#             */
+/*   Updated: 2024/12/29 12:17:39 by fkuruthl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube.h"
+
 int	cubcheck(char *y)
 {
-	int	i;
+	int	len = ft_strlen(y);
 
-	i = 0;
-	while (y[i])
-	{
-		if (y[i] != 46)
-			i++;
-		else
-		{
-			return (0);
-		}
-		if (y[i + 1] == 'c')
-		{
-			if (y[i + 2] == 'u')
-			{
-				if (y[i + 3] == 'b')
-				{
-					if (y[i + 4] == '\0')
-						return (1);
-				}
-			}
-		}
-	}
+	if (len < 4)
+		return (0);
+	if (ft_strcmp(&y[len - 4], ".cub") == 0)
+		return (1);
 	return (0);
 }
 int main(int argc , char **argv)
