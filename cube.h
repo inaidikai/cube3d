@@ -111,4 +111,6 @@ void	free_cube3d(t_vars *vars);
 int	perror_cube3d(char *str, int flag);
 t_vars	*ft_t_vars(void);
 int path_struct(t_map *map);
+int	ft_array_length(char **array);
+char **ft_dup_cpp(char **src, int len);
 #endif
