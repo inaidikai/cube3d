@@ -12,7 +12,11 @@ INFILES = main.c \
           get_next_line.c \
           get_next_line_utils.c \
 		  exit_error.c\
-		  path_struct.c
+		  path_struct.c \
+		  player_movement.c \
+		  texture.c \
+		  execution.c 
+
 
 OBJFILES = $(INFILES:.c=.o)
 

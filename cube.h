@@ -67,52 +67,6 @@
 // 	int			endian;
 // }				t_texture;
 
-//  typedef struct s_img
-// {
-// 	t_texture	*no;
-// 	t_texture	*so;
-// 	t_texture	*we;
-// 	t_texture	*ea;
-// 	int			f;
-// 	int			c;
-// 	int			init;
-// }				t_img;
-
-//  typedef struct s_keys
-// {
-// 	int w;
-// 	int a;
-// 	int s;
-// 	int d;
-	
-// }				t_keys;
-
-
-// enum	e_element
-// {
-// 	NO = 1,
-// 	SO = 2,
-// 	WE = 3,
-// 	EA = 4,
-// 	F = 5,
-// 	C = 6,
-
-// };
-
-// char	*get_next_line(int fd);
-// size_t	ft_strlen(char const *str);
-// char	*ft_strch(char const *str, int c);
-// char	*ft_strcpy(char *dest, char *src);
-// char	*ft_strdup(char const *src);
-// char	*ft_strjoin(char const *s1, char const *s2);
-// void ft_free_pp(void **argv);
-// char cube3d(char *c);
-// void	free_cube3d(t_vars *vars);
-// int	perror_cube3d(char *str, int flag);
-// t_vars	*ft_t_vars(void);
-// int path_struct(t_map *map);
-// #endif
-
 #ifndef CUBE_H
 #define CUBE_H
 
@@ -121,12 +75,25 @@
 #include <mlx.h>
 #include <limits.h>
 #include <stdio.h>
+#include <math.h>
+
+
 #include <string.h>
 #include <fcntl.h>
 #include "libft/libft.h"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
+#define LEFT_ARROW 123
+#define RIGHT_ARROW 124
+#define ESC_KEY 53
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
+#define SKY_COLOR 0x87CEEB 
+#define FLOOR_COLOR 0x8B4513 
+
 
 typedef struct s_map
 {
@@ -144,19 +111,36 @@ typedef struct s_texture
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int type;
 }	t_texture;
+
+typedef struct s_keys
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+	int left;
+    int right;
+}	t_keys;
 
 typedef struct s_img
 {
-	t_texture *no;
-	t_texture *so;
-	t_texture *we;
-	t_texture *ea;
+	t_texture	*no;
+	t_texture	*so;
+	t_texture	*we;
+	t_texture	*ea;
+	int			f;
+	int			c;
+	int			init;
 }	t_img;
 
 typedef struct s_vars
 {
 	void		*mlx;
+	int init;
+	int		map_x;
+	int		map_y;
 	void		*win;
 	void		*img;
 	char		*img_addr;
@@ -175,7 +159,10 @@ typedef struct s_vars
 	double		plane_y;
 	int			width;
 	int			height;
+	t_keys keys;
 }	t_vars;
+
+
 
 typedef struct s_ray
 {
@@ -193,14 +180,23 @@ typedef struct s_ray
 	int		hit;
 }	t_ray;
 
-typedef struct s_keys
-{
-	int	w;
-	int	a;
-	int	s;
-	int	d;
-}	t_keys;
 
+
+enum	e_element
+{
+	NO = 1,
+	SO = 2,
+	WE = 3,
+	EA = 4,
+	F = 5,
+	C = 6,
+};
+
+char cube3d(char *c);
+void ft_free_pp(void **argv);
+int handle_key_press(int keycode, t_vars *vars);
+int handle_key_release(int keycode, t_vars *vars);
+int exit_game(t_vars *vars);
 void	raycasting(t_vars *vars);
 void	init_ray(t_vars *vars, t_ray *ray, int x);
 void	perform_dda(t_vars *vars, t_ray *ray);
@@ -212,4 +208,6 @@ char	*get_next_line(int fd);
 void	free_cube3d(t_vars *vars);
 t_vars	*ft_t_vars(void);
 int path_struct(t_map *map);
+int perror_cube3d(char *msg, int flag);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inkahar <inkahar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fkuruthl <fkuruthl@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:36:29 by inkahar           #+#    #+#             */
-/*   Updated: 2024/12/13 15:20:05 by inkahar          ###   ########.fr       */
+/*   Updated: 2024/12/30 03:36:31 by fkuruthl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,19 @@ void	init_color(int *color, char *element)
 	 exit(perror_cube3d("colour invalid", 0));
 }
 
-void	init_texture(t_vars *vars, t_texture *txt, char *element, int val)
+void init_texture(void *mlx, t_texture *txt, char *path, int val)
 {
-    if (!vars->mlx)
-        exit(perror_cube3d("mlx is not initialized", 0));
-    txt->img = mlx_xpm_file_to_image(vars->mlx, element,
-            &txt->width, &txt->height);
+    txt->img = mlx_xpm_file_to_image(mlx, path, &txt->width, &txt->height);
     if (!txt->img)
-        exit(perror_cube3d("Failed to load texture", 0));
-
-    txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel,
-            &txt->line_length, &txt->endian);
-    txt->pix_y = 0;
-    txt->pix_x = 0;
-    txt->txt = val;
+    {
+        perror("Error: Failed to load texture");
+        exit(EXIT_FAILURE);
+    }
+    txt->addr = mlx_get_data_addr(txt->img, &txt->bits_per_pixel, &txt->line_length, &txt->endian);
+    txt->type = val;
 }
+
+
 
 t_img	*ft_t_img(void)
 {
@@ -92,19 +90,22 @@ t_img	*ft_t_img(void)
 static int	init_element(char *element, int val)
 {
 	if (element && val == NO)
-		init_texture(ft_t_vars(), ft_t_img()->no, element, val);
+		init_texture(ft_t_vars()->mlx, ft_t_img()->no, element, val);
 	else if (element && val == SO)
-		init_texture(ft_t_vars(), ft_t_img()->so, element, val);
+		init_texture(ft_t_vars()->mlx, ft_t_img()->so, element, val);
 	else if (element && val == WE)
-		init_texture(ft_t_vars(), ft_t_img()->we, element, val);
+		init_texture(ft_t_vars()->mlx, ft_t_img()->we, element, val);
 	else if (element && val == EA)
-		init_texture(ft_t_vars(), ft_t_img()->ea, element, val);
+		init_texture(ft_t_vars()->mlx, ft_t_img()->ea, element, val);
 	else if (element && val == F)
 		init_color(&ft_t_img()->f, element);
 	else if (element && val == C)
 		init_color(&ft_t_img()->c, element);
 	else
-		return (perror_cube3d("whattttt", 0));
+	{
+		perror("Error: Invalid element type");
+		return (0);
+	}
 	return (1);
 }
 
@@ -246,5 +247,5 @@ char cube3d(char *c)
     {
         exit(perror_cube3d("map invalid", 0));
     }
-    return 0;
+    return 1;
 }
